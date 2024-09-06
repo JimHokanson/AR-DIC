@@ -17,11 +17,14 @@ function dispmag=DIC_disp(stringtext)
 % VIDOBJ
 % READIMAGEJPIV
 
+t = tic;
 PIVtext=dir(stringtext);%get text file list
 PIVtext_names={PIVtext.name};%get file names
 [~,idx]=sort_nat(PIVtext_names);%get sorting index
 PIVtext=PIVtext(idx);%sort files in alphanumerical order
-frames=length(PIVtext);%get total number of frames
+
+index=length(PIVtext);%get total number of frames
 filename=PIVtext(frames).name;%get most recent frame
 M=dlmread(filename); %read in text file from ImageJ PIV
 dispmag=M(:,5); %transfer data to individual vectors for coordinates
+toc(t);

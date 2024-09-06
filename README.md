@@ -8,7 +8,7 @@ OVERVIEW
 We developed an Adaptive Reference-Digital Image Correlation (AR-DIC) method which extends DIC capabilities enabling robust, unbiased, and accurate kinematics and strain measurements of biological samples which lack clear reference frames. Further, innovative tissue mechanical characterization and data visualization may lead to standardized measures of tissue mechanical functioning for lab-grown tissues and in-vivo diagnosis (i.e. photoacoustic imaging, ultrasound speckle tracking, magnetic resonance elastography: MRE). Together the novel DIC methods and tissue characterizations provide researchers and clinicians non-invasive tools for mechanobiology assessment. We applied these concepts to a difficult-to-characterize spontaneously beating cardiomyocyte (CM) tissue model assessing the localization, synchronization, and development of CM beating.
 
 
-CODE CONTENTS
+# CODE CONTENTS #
 
 1. AR-DIC Matlab toolbox
 
@@ -23,26 +23,26 @@ CODE CONTENTS
     Python local HTTP server script, Demo files
 
 
-CODE AVAILABLILITY
+# CODE AVAILABLILITY #
 
 Github: https://github.com/TheLimLab/AR-DIC
 
 
-LICENSE
+# LICENSE #
 
 GNU General Public License V 3.0
 
 
-CITATION
+# CITATION #
 
 Akankshya Shradhanjali, Brandon D. Riehl, Bin Duan, Ruiguo Yang, Jung Yul Lim. Spatiotemporal characterizations of spontaneously beating cardiomyocytes with adaptive reference digital image correlation. Sci. Rep. In press. https://doi.org/10.1038/s41598-019-54768-w
 
 
-REPRODUCIBILITY
+# REPRODUCIBILITY #
 
 Download our contracting and non-contracting video samples (links in Supplementary Information: https://doi.org/10.1038/s41598-019-54768-w). 
 
-Set the folder paths and run the following scripts to reproduce our main results:
+## Set the folder paths and run the following scripts to reproduce our main results: ##
 
 main_AR_DIC.m
 
@@ -51,21 +51,31 @@ main_AR_DIC_process.m
 main_AR_DIC_plotting.m
 
 
-SYSTEM REQUIREMENTS:
+# SYSTEM REQUIREMENTS: #
 
-Hardware requirements (minimum):
+## Hardware requirements (minimum): ##
 2 processing cores at 2 GHz or greater
 4GB RAM
 
-Software requirements
+## Software requirements ##
 Tested operating systems:
 Windows 7
 Windows 10
 MacOS Sierra
 
-AR-DIC requirements:
+## AR-DIC requirements: ##
 
 Matlab R2015a (v8.5) or higher is recommended. Tested on R2015a, R2018b.
+
+### FFMPEG ##
+
+This is required for many videos that are not readable by ImageJ.
+
+Download the latest release at:
+https://github.com/BtbN/FFmpeg-Builds/releases
+
+Make sure to update the config to define **ffmpeg_root**
+
 
 Matlab Image processing toolbox v9.2 or higher.
 
@@ -75,7 +85,7 @@ MIJ (http://bigwww.epfl.ch/sage/soft/mij/)
 
 Particle Image Velocimetry ImageJ plugin (https://sites.google.com/site/qingzongtseng/piv)
 
-ASTC Map requirements:
+## ASTC Map requirements: ##
 
 Processing version 3.3.4 or later with PeasyCam v.202 library or later
 
