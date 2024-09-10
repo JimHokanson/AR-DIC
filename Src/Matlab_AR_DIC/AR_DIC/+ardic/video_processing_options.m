@@ -15,6 +15,8 @@ classdef video_processing_options < handle
 
         %frame becomes new reference if score is below norm threshold
         norm_threshold = 1.5;
+
+        verbose = false
     end
 
     methods

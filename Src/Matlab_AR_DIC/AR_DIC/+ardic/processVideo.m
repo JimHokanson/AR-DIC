@@ -27,6 +27,7 @@ end
 %Ideally these would be exposed as options ...
 option_string='piv1=128 sw1=256 vs1=64 piv2=64 sw2=128 vs2=32 piv3=48 sw3=96 vs3=24 correlation=0.8';
 
+original_video_path = video_path;
 
 %Step 1:
 %-----------------------------------
@@ -38,21 +39,28 @@ if ~strcmpi(ext,'avi')
     config = ardic.config();
     ffmpeg_path = config.getFFMpegPath();
     %ffmpeg -i "137P31 ASO_1.MOV" -c:v rawvideo "137P31 ASO_1.AVI"
-    video_path = fullfile(cd,'temp_ardic.avi');
-    if exist(video_path,'file')
-        delete(video_path)
+    target_video_path = fullfile(cd,'temp_ardic.avi');
+    %new_name = [video_file_name '.avi'];
+    %target_video_path = fullfile(cd,new_name);
+    if exist(target_video_path,'file')
+        delete(target_video_path)
     end
-    cmd = sprintf('%s -i "%s" -c:v rawvideo "temp_ardic.avi"',ffmpeg_path,video_path);
-    fprintf('Converting file to AVI: %s\n',video_file_name)
+    cmd = sprintf('%s -i "%s" -c:v rawvideo "temp_ardic.avi"',ffmpeg_path,original_video_path);
+    %cmd = sprintf('%s -i "%s" -c:v rawvideo "%s"',ffmpeg_path,original_video_path,new_name);
+    if options.verbose
+        fprintf('Converting file to AVI: %s\n',video_file_name)
+    end
     [status,result] = system(cmd); %#ok<ASGLU>
-    if ~exist(video_path,'file')
+    if ~exist(target_video_path,'file')
         error('ffmpeg failed to create converted file -- not sure why ...')
     end
-    fprintf('Conversion finished\n')
+    video_path = target_video_path;
+    if options.verbose
+        fprintf('Conversion finished\n')
+    end
 end
 
-temp = VideoReader(video_path);
-n_frames_total = temp.NumFrames;
+
 
 %To avoid backslash issues in ImageJ
 video_path_imagej = video_path;
@@ -61,7 +69,7 @@ video_path_imagej = strrep(video_path_imagej,'\','/');
 %Step 2:
 %------------------------------------
 %Compute the PIV results
-dic_save_root = options.getVideoSaveRoot(video_path);
+dic_save_root = options.getVideoSaveRoot(original_video_path);
 path_query = fullfile(dic_save_root,'*PIV3*.txt'); 
 dic_save_path_imagej = strrep(dic_save_root,'\','/');
 if dic_save_path_imagej(end) ~= '/'
@@ -71,9 +79,13 @@ if dic_save_path_imagej(end) ~= '/'
 end
 
 %initialize, start MIJ without gui
+if options.verbose
 fprintf('Initializing MIJ\n')
+end
 Miji(false);
 
+temp = VideoReader(original_video_path);
+n_frames_total = temp.NumFrames;
 start_frame=options.start_frame;
 ref_frame = start_frame;
 end_frame = options.getEndFrame(n_frames_total);
@@ -82,7 +94,9 @@ score_keeper = NaN(end_frame,1);
 is_ref_frame = false(end_frame,1);
 is_ref_frame(start_frame) = true;
 
-fprintf('Processing started\n')
+if options.verbose
+    fprintf('Processing started\n')
+end
 for current_frame = start_frame+1:end_frame
     
     %Perform DIC in ImageJ
@@ -116,7 +130,7 @@ MIJ.exit;
 if video_converted
     [~,name] = fileparts(video_path);
     %Double checking, don't want to delete good files
-    if name == "temp_ardic.avi"
+    if name == "temp_ardic"
         delete(video_path)
     else
         error('Jim has an error in his code')
