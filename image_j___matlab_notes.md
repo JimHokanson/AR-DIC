@@ -31,3 +31,6 @@
  -https://github.com/imagej/imagej-matlab/issues/14
 
    - last comment is basically this is proof of concept ... - sounds like MIJ have have more functionality ...
+   
+   
+- MOV - bio-formats?

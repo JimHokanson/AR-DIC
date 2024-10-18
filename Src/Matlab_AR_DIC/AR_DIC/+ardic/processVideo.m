@@ -34,6 +34,8 @@ original_video_path = video_path;
 %Do conversion if necessary
 video_converted = false;
 [~,video_file_name,ext] = fileparts(video_path);
+
+%Note, we assume that if AVI we are uncompressed, this may not be true
 if ~strcmpi(ext,'avi')
     video_converted = true;
     config = ardic.config();
@@ -45,7 +47,7 @@ if ~strcmpi(ext,'avi')
     if exist(target_video_path,'file')
         delete(target_video_path)
     end
-    cmd = sprintf('%s -i "%s" -c:v rawvideo "temp_ardic.avi"',ffmpeg_path,original_video_path);
+    cmd = sprintf('"%s" -i "%s" -c:v rawvideo "temp_ardic.avi"',ffmpeg_path,original_video_path);
     %cmd = sprintf('%s -i "%s" -c:v rawvideo "%s"',ffmpeg_path,original_video_path,new_name);
     if options.verbose
         fprintf('Converting file to AVI: %s\n',video_file_name)

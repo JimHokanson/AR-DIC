@@ -22,13 +22,17 @@
 clear
 close all %close open figures
 [~]=get(0,'Factory');%Commands to set all figure backgrounds to white
-set(0,'defaultfigurecolor',[1 1 1]);
-set(0,'defaultlinelinewidth',2);
-clc
+% set(0,'defaultfigurecolor',[1 1 1]);
+% set(0,'defaultlinelinewidth',2);
+% clc
 
 %%%%%%%%%%%%%%%%%%%%%% User Input: Set parameters %%%%%%%%%%%%%%%%%%%%%%%%%
-folder_stretch100='C:\Users\username\Documents\MATLAB\CM_contract'; %stretch100
-folder_control100='C:\Users\username\Documents\MATLAB\CM_non_contract';
+folder_stretch100 = 'D:\Data\aoy\videos\137P31 ASO_1_DIC_results';
+folder_control100 = folder_stretch100;
+
+% folder_stretch100='C:\Users\username\Documents\MATLAB\CM_contract'; %stretch100
+% folder_control100='C:\Users\username\Documents\MATLAB\CM_non_contract';
+
 %-------------------------------------------------------------------------%
 stringtext='*PIV3*.txt';% get only output files from 3rd iteration of plugin
 scale100=1.04; %set pixel micrometer scale px/um (10x objective)

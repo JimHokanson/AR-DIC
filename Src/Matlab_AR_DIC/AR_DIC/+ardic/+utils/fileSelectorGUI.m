@@ -10,7 +10,7 @@ function selectedFiles = fileSelectorGUI()
     %   -------------
     %   1. allow passing in the file filter
 
-    VIDEO_FORMAT = '*.MOV*';
+    VIDEO_FORMAT = {'*.MOV;*.AVI','video files'};
 
     % Create the main figure window
     hFig = figure('Position', [400, 300, 600, 600], 'MenuBar', 'none', ...

@@ -1,7 +1,33 @@
+# Installation #
+
+- Clone repo
+- download and extract FIJI - https://fiji.sc/
+- run FIJI and download Particle Image Velocimetry plugin
+   - help -> manage update sites
+   - add update site - https://sites.imagej.net/iterativePIV/
+        - note this is unlisted so you need to enter it manually
+        - once you add you need to apply changes and restart ImageJ
+        - PIV should now be listed in the plugins menu
+- set paths in MATLAB
+```
+javaaddpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\jar\mij.jar')
+javaaddpath('C:\Users\jhokanson\Desktop\Fiji.app\jars\ij-1.54f.jar')
+addpath('C:\Users\jhokanson\Desktop\Fiji.app\scripts')
+```
+- more paths :/ (not sure if the last one is needed)
+```
+addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\functions')
+addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\main')
+addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\objects')
+addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC')
+```
+- TODO: explain ffmpeg installation
+
+
+
 # AR-DIC
 
 Adaptive Reference-Digital Image Correlation (AR-DIC) enables unbiased and accurate mechanics measurements of moving biological tissue samples. Includes advanced tissue mechanical characterization and spatiotemporal analysis of cardiomyocyte beating for holistic measures of functional myocardial tissue development.
-
 
 OVERVIEW
 
