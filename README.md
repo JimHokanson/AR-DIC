@@ -1,14 +1,15 @@
 # Installation #
 
-- Clone repo
+- Download or Clone this repository
 - download and extract FIJI - https://fiji.sc/
+  - note, FIJI doesn't get installed, it just runs from the extracted folder
 - run FIJI and download Particle Image Velocimetry plugin
-   - help -> manage update sites
+   - help -> update -> manage update sites
    - add update site - https://sites.imagej.net/iterativePIV/
         - note this is unlisted so you need to enter it manually
-        - once you add you need to apply changes and restart ImageJ
+        - once you add you need to apply changes and restart ImageJ (unless PIV 
         - PIV should now be listed in the plugins menu
-- set paths in MATLAB
+- Set paths in MATLAB. Note, I like to do this in my `startup.m` file. It can also be done 
 ```
 javaaddpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\jar\mij.jar')
 javaaddpath('C:\Users\jhokanson\Desktop\Fiji.app\jars\ij-1.54f.jar')
@@ -21,8 +22,13 @@ addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\main')
 addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC\objects')
 addpath('D:\repos\matlab\AR-DIC\Src\Matlab_AR_DIC\AR_DIC')
 ```
-- TODO: explain ffmpeg installation
-
+- Install FFmpeg
+  - https://www.ffmpeg.org/
+  - download the correct version and extract - note this also doesn't install
+  - modify a copy of the file user_config_template.m in the folder: `<repo_root>/AR_DIC/+ardic/`
+    - copy the template file and change the name of the second file to `user_config.m`
+    - modify the path to point to the ffmpeg install (in the new file)
+      - TODO: finish these instructions ...
 
 
 # AR-DIC
