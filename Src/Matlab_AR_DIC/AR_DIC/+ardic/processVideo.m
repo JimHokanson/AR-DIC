@@ -1,10 +1,16 @@
 function processVideo(video_path,options)
 %
-%   ardic.processVideo(video_path)
+%
+%   Calling Forms
+%   -------------
+%   ardic.processVideo(video_path,*options)
+%
+%   
 %
 %
 %   Improvements
 %   ------------
+%   - if no video path is specified, prompt via uigetfile
 %   - add support for verbose printing
 %   - add PIV loop printing
 %   - expose processing options
@@ -12,6 +18,10 @@ function processVideo(video_path,options)
 %           - no, needs to be tracked
 %   - fix loading ref score - loading of last frame
 %       - test starting in the middle of a video
+%
+%   Examples
+%   --------
+%   1) 
 
 %{
     video_path = 'D:\Data\aoy\videos\137P31 ASO_1.MOV';
@@ -20,7 +30,19 @@ function processVideo(video_path,options)
     ardic.processVideo(video_path,options)
 %}
 
-if nargin == 1
+if nargin < 1 || isempty(video_path)
+    [file_name, root_path] = uigetfile({'*.mp4;*.avi;*.mov;*.mkv;*.wmv', ...
+        'Video Files (*.mp4, *.avi, *.mov, *.mkv, *.wmv)'}, ...
+        'Select a Video File');
+
+    if isequal(file_name, 0)
+        error('No file selected. Exiting.');
+    end
+
+    video_path = fullfile(root_path, file_name);
+end
+
+if nargin < 2
     options = ardic.video_processing_options;
 end
 
@@ -242,7 +264,23 @@ MIJ.run('Images to Stack',['name=(',num2str(refframe),',',num2str(currentframe),
 %
 %   This is what takes forever to run and could be rewritten to do in
 %   parallel
-MIJ.run('iterative PIV(Advanced)...', ['  ',option_string,' batch path=[',folderpath,']']);
+%
+%   Note: batch is a command for advaned (enables batch?)
+%        - path is save path?
+%       [] is used to handle spaces in paths in Image J
+%MIJ.run('iterative PIV(Advanced)...', ['  ',option_string,' batch path=[',folderpath,']']);
+
+option_string2 = sprintf('%s batch path=[%s]',option_string,folderpath);
+MIJ.run('iterative PIV(Advanced)...',option_string2)
+
+%MIJ.run('iterative PIV(Advanced)...', ['  ',option_string,' save=[',folderpath,']']);
+
+
+%{
+run("iterative PIV(Advanced)...", "  piv1=128 sw1=256 vs1=64 piv2=64 sw2=128 vs2=32 piv3=48 sw3=128 vs3=16 correlation=0.60 postprocessing=None postprocessing_0=0.20 postprocessing_1=5 path=/Users/jim/Desktop/wtf what=[Accept this PIV and output] noise=0.20 threshold=5 c1=0.20 c2=5 save=/Users/jim/Desktop/wtf/PIV_temp_ardic.txt");
+%}
+
+%MIJ.run('About ImageJ...')
 
 MIJ.run('Close All');%close all ImageJ images
 
