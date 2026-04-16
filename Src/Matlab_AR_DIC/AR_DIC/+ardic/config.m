@@ -32,10 +32,26 @@ classdef config
             end
             if isfield(obj.s,'ffmpeg_root')
                 root = obj.s.ffmpeg_root;
-                path = fullfile(root,'ffmpeg.exe');
-                %TODO: Disambiguate, test root first
-                if ~exist(root,'file')
-                    error('Specified ffmpeg root folder does not exist or ffmpeg.exe does not exist in it')
+
+                if ~exist(root,"dir")
+                    %is it a file?
+                    if exist(root,'file')
+                        path = root;
+                    else
+                        error('Specified ffmpeg root folder is missing');
+                    end
+                else
+                    path = fullfile(root,'ffmpeg.exe');
+                    if ~exist(path,'file')
+                        if ismac
+                            %On mac, seems like app is just ffmpeg
+                            path = fullfile(root,'ffmpeg');
+                            if exist(path,'file')
+                                return
+                            end
+                        end
+                        error('ffmpeg app not found in specified ffmpeg root folder')
+                    end
                 end
             else
                 error('user_config does not specify ffmpeg_root')
